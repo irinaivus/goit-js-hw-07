@@ -1,35 +1,44 @@
-// Створи клас Storage, який створюватиме об'єкти для управління складом товарів. Клас очікує лише один аргумент — початковий масив товарів, який записується до створеного об'єкта в приватну властивість items.
+const images = [
+  {
+    url: 'https://images.pexels.com/photos/140134/pexels-photo-140134.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    alt: 'White and Black Long Fur Cat',
+  },
+  {
+    url: 'https://images.pexels.com/photos/213399/pexels-photo-213399.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    alt: 'Orange and White Koi Fish Near Yellow Koi Fish',
+  },
+  {
+    url: 'https://images.pexels.com/photos/219943/pexels-photo-219943.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+    alt: 'Group of Horses Running',
+  },
+  {
+    url: 'https://images.pexels.com/photos/66898/elephant-cub-tsavo-kenya-66898.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    alt: 'Elephant Beside on Baby Elephant',
+  },
+  {
+    url: 'https://images.pexels.com/photos/37833/rainbow-lorikeet-parrots-australia-rainbow-37833.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    alt: 'Blue Geeen and Orange Parrot',
+  },
+  {
+    url: 'https://images.pexels.com/photos/247376/pexels-photo-247376.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    alt: 'Zebras on Zebra',
+  },
+];
 
-// Оголоси наступні методи класу:
-
-// getItems() — повертає масив поточних товарів у приватній властивості items.
-// addItem(newItem) — приймає новий товар newItem і додає його до масиву товарів у приватну властивість items об'єкта.
-// removeItem(itemToRemove) — приймає рядок з назвою товару itemToRemove і видаляє його з масиву товарів у приватній властивості items об'єкта.
-
-// Візьми код нижче з ініціалізацією екземпляра й викликами методів і встав його після оголошення класу для перевірки коректності роботи. У консоль будуть виведені результати їх роботи. Будь ласка, нічого там не змінюй.
-
-class Storage {
-  #items;
-  constructor(items) {
-    this.#items = items;
-  }
-  getItems() {
-    return this.#items;
-  }
-  addItem(newItem) {
-    return this.#items.push(newItem);
-  }
-  removeItem(itemToRemove) {
-    return (this.#items = this.#items.filter(item => item !== itemToRemove));
-    // 2 варіант:
-    // const indexItems = this.#items.indexOf(itemToRemove);
-    // return this.#items.splice(indexItems, 1);
-  }
+const gallery = document.querySelector('.gallery');
+function createMarkup(array) {
+  return array
+    .map(
+      ({ url, alt }) => `
+  <li class = "gallery-item">
+    <img  src = ${url} alt = ${alt} class = "gallery-imag" width = 360 height = 300 />
+  </li>`
+    )
+    .join('');
 }
+gallery.style.display = 'flex';
+gallery.style.flexWrap = 'wrap';
+gallery.style.gap = '24px';
+gallery.style.listStyle = 'none';
 
-const storage = new Storage(['Nanitoids', 'Prolonger', 'Antigravitator']);
-console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator"]
-storage.addItem('Droid');
-console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator", "Droid"]
-storage.removeItem('Prolonger');
-console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]
+gallery.insertAdjacentHTML('beforeend', createMarkup(images));
